@@ -89,7 +89,7 @@ class Ui_InputBookinfo(object):
 
     def retranslateUi(self, InputBookinfo):
         _translate = QtCore.QCoreApplication.translate
-        InputBookinfo.setWindowTitle(_translate("InputBookinfo", "Form"))
+        InputBookinfo.setWindowTitle(_translate("InputBookinfo", "添加书籍信息"))
         self.pushButton_2.setText(_translate("InputBookinfo", "清空"))
         self.pushButton.setText(_translate("InputBookinfo", "确认"))
         self.pushButton_3.setText(_translate("InputBookinfo", "退出"))
@@ -128,6 +128,7 @@ class Ui_InputBookinfo(object):
         changed_row = len(data)
         # if changed_row == original_row+1:
         #      mainWindow.close()
+        self.cursor.close()
 
 
 if __name__ == '__main__':

@@ -72,7 +72,7 @@ class Ui_Insertsell(object):
 
     def retranslateUi(self, Insertsell):
         _translate = QtCore.QCoreApplication.translate
-        Insertsell.setWindowTitle(_translate("Insertsell", "Form"))
+        Insertsell.setWindowTitle(_translate("Insertsell", "卖出书籍"))
         self.pushButton.setText(_translate("Insertsell", "清空"))
         self.pushButton_2.setText(_translate("Insertsell", "确认"))
         self.pushButton_3.setText(_translate("Insertsell", "退出"))
@@ -96,3 +96,4 @@ class Ui_Insertsell(object):
         sql = "insert into sell(isbn, price, AlreadySold)  values('%s','%d','%d')" % \
               (isbn, int(price), int(sell_num))
         self.execute_sql(sql)
+        self.cursor.close()

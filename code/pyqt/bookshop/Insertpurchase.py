@@ -73,7 +73,7 @@ class Ui_insertpurchase(object):
 
     def retranslateUi(self, insertpurchase):
         _translate = QtCore.QCoreApplication.translate
-        insertpurchase.setWindowTitle(_translate("insertpurchase", "Form"))
+        insertpurchase.setWindowTitle(_translate("insertpurchase", "购入书籍"))
         self.pushButton.setText(_translate("insertpurchase", "清空"))
         self.pushButton_2.setText(_translate("insertpurchase", "确认"))
         self.pushButton_3.setText(_translate("insertpurchase", "退出"))
@@ -97,7 +97,7 @@ class Ui_insertpurchase(object):
         sql = "insert into purchasebook(isbn, price, purchasenum) values('%s','%d','%d')" % \
               (isbn, int(price), int(purchase_num))
         self.execute_sql(sql)
-
+        self.cursor.close()
 
 if __name__ == '__main__':
     # db = QtSql.QSqlDatabase.addDatabase('QMYSQL')

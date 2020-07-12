@@ -56,7 +56,7 @@ class Ui_delbook(object):
 
     def retranslateUi(self, delbook):
         _translate = QtCore.QCoreApplication.translate
-        delbook.setWindowTitle(_translate("delbook", "Form"))
+        delbook.setWindowTitle(_translate("delbook", "删除书籍"))
         self.pushButton_2.setText(_translate("delbook", "确认"))
         self.pushButton_3.setText(_translate("delbook", "退出"))
         self.label.setText(_translate("delbook", "ISBN"))

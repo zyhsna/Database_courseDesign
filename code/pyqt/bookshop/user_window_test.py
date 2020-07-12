@@ -33,6 +33,7 @@ class Ui_userWindow(object):
         self.book.setGeometry(QtCore.QRect(190, 40, 701, 411))
         self.book.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.book.setObjectName("book")
+
         self.label = QtWidgets.QLabel(self.book)
         self.label.setEnabled(False)
         self.label.setGeometry(QtCore.QRect(270, 10, 91, 20))
