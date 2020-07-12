@@ -19,7 +19,7 @@ from Insertbook import *
 from Insertpurchase import *
 from Insertsell import *
 from Insertdel import *
-
+from searchbook import *
 
 
 class Ui_user_window_test(object):
@@ -154,11 +154,12 @@ class Ui_user_window_test(object):
         childwindow_insertpurchase = child_purchase_book()
         childwindow_insertsell = child_sellbook()
         childwindow_insertdel = child_delbook()
-
+        childwindow_searchbook = child_searchbook()
         self.pushButton.clicked.connect(lambda: childwindow_addbook.show())
         self.purchasebook.clicked.connect(lambda: childwindow_insertpurchase.show())
         self.sellbook.clicked.connect(lambda: childwindow_insertsell.show())
         self.del_book.clicked.connect(lambda: childwindow_insertdel.show())
+        self.search_book.clicked.connect(lambda: childwindow_searchbook.show())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -272,6 +273,12 @@ class child_delbook(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.UI = Ui_delbook()
+        self.UI.setupUi(self)
+
+class child_searchbook(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_searchbook()
         self.UI.setupUi(self)
 
 
