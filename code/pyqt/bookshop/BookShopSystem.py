@@ -4,7 +4,7 @@
 # 文件名：BookShopSystem.py
 # 开发工具：
 
-import LoginUI
+from LoginUI import Ui_MainWindow
 from user_window import User_MainWindow
 import sys
 
@@ -14,11 +14,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 class Login(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainWindow = Login()
-    mainWindow.ui.show()
+    mainWindow.show()
     sys.exit(app.exec_())

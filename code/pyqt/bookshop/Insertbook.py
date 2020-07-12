@@ -113,7 +113,6 @@ class Ui_InputBookinfo(object):
         self.cursor.execute(sql)
         # 获取查询到的数据, 是以二维元组的形式存储的, 所以读取需要使用 data[i][j] 下标定位
         data = self.cursor.fetchall()
-        # 打印测试
         original_row = len(data)
         # 定义SQL语句
         try:

@@ -133,8 +133,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             if account in bookshop_admin.keys():
                 if bookshop_admin[account] == password:
                     self.statusbar.showMessage("管理员登录成功", 2000)
-                    user.show()
-                    MainWindow.close()
+
+                    # MainWindow.close()
                 elif len(password) is 0:
                     self.statusbar.showMessage("请输入密码", 2000)
                 else:
@@ -148,6 +148,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             if account in bookshop_employee.keys():
                 if bookshop_employee[account] == password:
                     self.statusbar.showMessage("用户登录成功", 2000)
+                    user.show()
+                    MainWindow.close()
                 elif len(password) is 0:
                     self.statusbar.showMessage("请输入密码", 2000)
                 else:

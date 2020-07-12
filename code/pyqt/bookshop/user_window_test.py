@@ -12,6 +12,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from PyQt5.QtWidgets import QApplication,QInputDialog, QLineEdit, QMainWindow, QWidget
 import sys
 from Insertbook import *
+from Insertpurchase import *
+from Insertsell import *
+from Insertdel import *
+
 
 class Ui_userWindow(object):
     def __init__(self):
@@ -101,9 +105,15 @@ class Ui_userWindow(object):
 
 
         """下面这段代码是用来弹出各种功能的pushbutton的界面，并绑定到对应的槽上面"""
-        childwindow = child_addbok()
-        self.add_book.clicked.connect(lambda: childwindow.show())
-      #  self.purchasebook.clicked.connect(lambda: self.Insert_Book())
+        childwindow_addbook = child_addbok()
+        childwindow_insertpurchase = child_purchase_book()
+        childwindow_insertsell = child_sellbook()
+        childwindow_insertdel = child_delbook()
+
+        self.add_book.clicked.connect(lambda: childwindow_addbook.show())
+        self.purchasebook.clicked.connect(lambda: childwindow_insertpurchase.show())
+        self.sellbook.clicked.connect(lambda: childwindow_insertsell.show())
+        self.del_book.clicked.connect(lambda: childwindow_insertdel.show())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -123,6 +133,7 @@ class Ui_userWindow(object):
     def get_book_info(self):
         self.db = connect(host='localhost', port=3306, charset='utf8', database='MySQL', password='zyh20000205',
                           user='root')
+        print(123)
         # 创建游标对象
         self.cursor = self.db.cursor()
         sql = "use bookshopmanagement"
@@ -133,28 +144,56 @@ class Ui_userWindow(object):
         self.cursor.execute(sql)
         # 获取查询到的数据, 是以二维元组的形式存储的, 所以读取需要使用 data[i][j] 下标定位
         data = self.cursor.fetchall()
+        print(data)
+        sql = " select ISBN,TotalNum from collectionofbook;"
+        self.cursor.execute(sql)
+        booknum_data = self.cursor.fetchall()
+        print(booknum_data)
+        print(54)
         # 打印测试
         row = len(data)
         col = len(data[0])
-        model = QtGui.QStandardItemModel(row, col)
+        flag = False
+        currentLocation = 0
+        MergedList = [[] for x in range(row)]
         for i in range(row):
-            for j in range(col):
-                if j is not 3:
-                    model.setItem(i, j, QtGui.QStandardItem(data[i][j]))
+            for j in range(len(booknum_data)):
+                if booknum_data[j][0] == data[i][0]:
+                    flag = True
+                    currentLocation = j
+                    break
+            if flag is True:
+                for x in range(col):
+                    MergedList[i].append(data[i][x])
+                MergedList[i].append(booknum_data[currentLocation][1])
+            else:
+                for x in range(col):
+                    MergedList[i].append(data[i][x])
+                MergedList[i].append(0)
+            flag = False
+        print(MergedList)
+
+
+        model = QtGui.QStandardItemModel(row, len(MergedList[0]))
+        # for i in range(row):
+        #     for j in range(col+1):
+        #         if j is not 3:
+        #             model.setItem(i, j, QtGui.QStandardItem(data[i][j]))
+        #         else:
+        #             model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
+        #         print(data[i][j])
+
+        for i in range(row):
+            for j in range(len(MergedList[0])):
+                if j is not 3 and j is not 4:
+                    model.setItem(i, j, QtGui.QStandardItem(MergedList[i][j]))
                 else:
-                    model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
-                print(data[i][j])
-        model.setHorizontalHeaderLabels(['ISBN', "书名", "作者", "定价"])
+                    model.setItem(i, j, QtGui.QStandardItem(str(MergedList[i][j])))
+
+        model.setHorizontalHeaderLabels(['ISBN', "书名", "作者", "定价", "存货"])
         self.table_info.setModel(model)
         self.statusbar.showMessage("查询成功！总共查询到"+str(row)+"条数据", 2000)
 
-    def Insert_Book(self):
-        # print(123)
-        # # db_text, db_action = QtWidgets.QInputDialog.getText(self, '数据库名称', '请输入数据库名称', QtWidgets.QLineEdit.Normal)
-        # ISBN, ok = QInputDialog.getText(self, "购入","ISBN",QLineEdit.Normal)
-        # if ok and ISBN:
-        #     print(ISBN)
-        self.InsertBook.show()
 
 
 class parentWindow(QMainWindow):
@@ -170,13 +209,31 @@ class child_addbok(QWidget):
         self.UI = Ui_InputBookinfo()
         self.UI.setupUi(self)
 
+class child_purchase_book(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.UI = Ui_insertpurchase()
+        self.UI.setupUi(self)
 
-#
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-# window = parentWindow()
-# childwindow = child()
-# window.UI.add_book.clicked.connect(lambda: childwindow.show())
-    #
-    # window.show()
-    # sys.exit(app.exec_())
+
+class child_sellbook(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.UI = Ui_Insertsell()
+        self.UI.setupUi(self)
+
+class child_delbook(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.UI = Ui_delbook()
+        self.UI.setupUi(self)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = parentWindow()
+    childwindow = child_addbok()
+    window.UI.add_book.clicked.connect(lambda: childwindow.show())
+
+    window.show()
+    sys.exit(app.exec_())
