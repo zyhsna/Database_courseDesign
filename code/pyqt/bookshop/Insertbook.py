@@ -13,10 +13,6 @@ from PyQt5.QtWidgets import QApplication
 
 
 class Ui_InputBookinfo(object):
-    # def __init__(self):
-    #     # 打开数据库连接
-
-
     def execute_sql(self, sql):
         try:
             # 执行数据库操作
@@ -77,6 +73,10 @@ class Ui_InputBookinfo(object):
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.gridLayout.addWidget(self.lineEdit_4, 3, 1, 1, 1)
 
+        self.statusbar = QtWidgets.QStatusBar(InputBookinfo)
+        self.statusbar.setObjectName("statusbar")
+        InputBookinfo.setStatusBar(self.statusbar)
+
         self.retranslateUi(InputBookinfo)
         self.pushButton_2.clicked.connect(self.lineEdit_4.clear)
         self.pushButton_2.clicked.connect(self.lineEdit_3.clear)
@@ -126,8 +126,10 @@ class Ui_InputBookinfo(object):
         # 获取查询到的数据, 是以二维元组的形式存储的, 所以读取需要使用 data[i][j] 下标定位
         data = self.cursor.fetchall()
         changed_row = len(data)
-        # if changed_row == original_row+1:
-        #      mainWindow.close()
+        if changed_row == original_row+1:
+             self.statusbar.showMessage("插入成功，请返回刷新", 2000)
+        else:
+            self.statusbar.showMessage("插入失败，请重试", 2000)
         self.cursor.close()
 
 

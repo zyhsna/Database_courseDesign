@@ -14,6 +14,7 @@ import json
 
 from user_window_test_1 import *
 
+
 class Ui_MainWindow(QtWidgets.QMainWindow):
     # def __init__(self, user_ui):
     def __init__(self):
@@ -171,6 +172,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         print("employee chosed")
         self.priority_flag = 1
 
+
 class login_window(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -181,7 +183,7 @@ class login_window(QMainWindow):
 class userWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.UI = Ui_user_window_test()
+        self.UI = Ui_user_window_test_1()
         self.UI.setupUi(self)
 
 

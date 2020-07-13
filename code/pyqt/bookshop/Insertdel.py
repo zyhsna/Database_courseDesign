@@ -72,5 +72,6 @@ class Ui_delbook(object):
         self.cursor.execute(sql)
         sql = "delete from book where ISBN = '%s' " % (isbn)
         self.execute_sql(sql)
+        self.cursor.connection.commit()
         self.db.close()
 
