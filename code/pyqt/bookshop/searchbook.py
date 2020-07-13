@@ -81,16 +81,21 @@ class Ui_searchbook(object):
         self.cursor = self.db.cursor()
         sql = "use bookshopmanagement"
         self.cursor.execute(sql)
-        if len(isbn) is 0 and len(author) is not 0:
-            sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
-                  "from book left join collectionofbook c on book.ISBN = c.ISBN where author = '%s' " % author
-        elif len(isbn) is not 0 and len(author) is 0:
-            sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
-                  " from book left join collectionofbook c on book.ISBN = c.ISBN where book.ISBN = '%s' " % isbn
-        elif len(isbn) is not 0 and len(author) is not 0:
-            sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
-            " from book left join collectionofbook c on book.ISBN = c.ISBN " \
-                  "where book.ISBN = '%s' and author = '%s' " % (isbn, author)
+        while True:
+            if len(isbn) is 0 and len(author) is not 0:
+                sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
+                      "from book left join collectionofbook c on book.ISBN = c.ISBN where author = '%s' " % author
+                break
+            elif len(isbn) is not 0 and len(author) is 0:
+                sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
+                      " from book left join collectionofbook c on book.ISBN = c.ISBN where book.ISBN = '%s' " % isbn
+                break
+            elif len(isbn) is not 0 and len(author) is not 0:
+                sql = "select book.ISBN,BookName,Author,Price,TotalNum " \
+                " from book left join collectionofbook c on book.ISBN = c.ISBN " \
+                      "where book.ISBN = '%s' and author = '%s' " % (isbn, author)
+                self.statusbar.showMessage("请输入信息", 2000)
+
         # 定义SQL语句
         print(isbn, author)
         self.execute_sql(sql)

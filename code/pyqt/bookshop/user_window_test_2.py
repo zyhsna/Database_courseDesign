@@ -19,7 +19,7 @@ from Insertdel import *
 from searchbook import *
 from insert_addreader import *
 from Insert_delreader import *
-
+from searchreader import *
 
 class Ui_user_window_test2(object):
     def setupUi(self, MainWindow):
@@ -159,8 +159,8 @@ class Ui_user_window_test2(object):
         """下面这些代码是用来弹出各种功能的pushbutton的界面，并绑定到对应的槽上面"""
         self.see_book_info.clicked.connect(lambda: self.get_book_info())
         self.see_reader_info.clicked.connect(lambda: self.get_reader_info())
-
-
+        self.radioButton.clicked.connect(lambda: self.get_borrow_info())
+        self.radioButton_2.clicked.connect(lambda: self.get_return_info())
 
         childwindow_addbook = child_addbok()
         childwindow_insertpurchase = child_purchase_book()
@@ -169,6 +169,7 @@ class Ui_user_window_test2(object):
         childwindow_searchbook = child_searchbook()
         childwindow_addreader = child_addreader()
         childwindow_delreader = child_delreader()
+        childwindow_searchreader = child_searchreader()
         self.pushButton.clicked.connect(lambda: childwindow_addbook.show())
         self.purchasebook.clicked.connect(lambda: childwindow_insertpurchase.show())
         self.sellbook.clicked.connect(lambda: childwindow_insertsell.show())
@@ -176,7 +177,8 @@ class Ui_user_window_test2(object):
         self.search_book.clicked.connect(lambda: childwindow_searchbook.show())
         self.pushButton_2.clicked.connect(lambda: childwindow_addreader.show())
         self.pushButton_4.clicked.connect(lambda: childwindow_delreader.show())
-    
+        self.pushButton_5.clicked.connect(lambda: childwindow_searchreader.show())
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "书店管理系统"))
@@ -202,6 +204,74 @@ class Ui_user_window_test2(object):
         self.pushButton_5.setText(_translate("MainWindow", "搜索读者"))
         self.label_2.setText(_translate("MainWindow", "读者信息"))
 
+    def get_borrow_info(self):
+        self.db = connect(host='localhost', port=3306, charset='utf8', database='MySQL', password='zyh20000205',
+                          user='root')
+        # 创建游标对象
+        self.cursor = self.db.cursor()
+        sql = "use bookshopmanagement"
+        self.cursor.execute(sql)
+        sql = "select * from borrow;"
+        self.cursor.execute(sql)
+        # 获取查询到的数据, 是以二维元组的形式存储的, 所以读取需要使用 data[i][j] 下标定位
+        data = self.cursor.fetchall()
+        print(data)
+        self.model = QtSql.QSqlTableModel()
+        self.borrow_info.setModel(self.model)
+        row = len(data)
+        model = QtGui.QStandardItemModel(row, len(data[0]))
+        col = len(data[0])
+        for i in range(row):
+            for j in range(len(data[0])):
+                if j is 3:
+                    model.setItem(i, j, QtGui.QStandardItem(data[i][j]))
+                elif j is 1:
+                    model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
+                elif j is 0 or j is 2:
+                    if data[i][j] is None:
+                        model.setItem(i, j, QtGui.QStandardItem(str(0)))
+                    else:
+                        model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
+        self.cursor.close()
+        model.setHorizontalHeaderLabels(['借书编号', '借阅时间', '借阅证ID', 'ISBN'])
+        self.borrow_info.setModel(model)
+
+        self.statusbar.showMessage("查询成功！总共查询到" + str(row) + "条数据", 2000)
+
+
+    def get_return_info(self):
+        self.db = connect(host='localhost', port=3306, charset='utf8', database='MySQL', password='zyh20000205',
+                          user='root')
+        # 创建游标对象
+        self.cursor = self.db.cursor()
+        sql = "use bookshopmanagement"
+        self.cursor.execute(sql)
+        sql = "select * from returnofbook;"
+        self.cursor.execute(sql)
+        # 获取查询到的数据, 是以二维元组的形式存储的, 所以读取需要使用 data[i][j] 下标定位
+        data = self.cursor.fetchall()
+        print(data)
+        self.model = QtSql.QSqlTableModel()
+        self.borrow_info.setModel(self.model)
+        row = len(data)
+        model = QtGui.QStandardItemModel(row, len(data[0]))
+        col = len(data[0])
+        for i in range(row):
+            for j in range(len(data[0])):
+                if j is 3:
+                    model.setItem(i, j, QtGui.QStandardItem(data[i][j]))
+                elif j is 1:
+                    model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
+                elif j is 0 or j is 2:
+                    if data[i][j] is None:
+                        model.setItem(i, j, QtGui.QStandardItem(str(0)))
+                    else:
+                        model.setItem(i, j, QtGui.QStandardItem(str(data[i][j])))
+        self.cursor.close()
+        model.setHorizontalHeaderLabels(['还书编号', '还书时间', '借阅证ID', 'ISBN'])
+        self.borrow_info.setModel(model)
+
+        self.statusbar.showMessage("查询成功！总共查询到" + str(row) + "条数据", 2000)
 
     def get_book_info(self):
         self.db = connect(host='localhost', port=3306, charset='utf8', database='MySQL', password='zyh20000205',
@@ -222,7 +292,6 @@ class Ui_user_window_test2(object):
         self.cursor.execute(sql)
         booknum_data = self.cursor.fetchall()
         print(booknum_data)
-        print(54)
         # 打印测试
         row = len(data)
         col = len(data[0])
@@ -287,6 +356,9 @@ class Ui_user_window_test2(object):
         self.statusbar.showMessage("查询成功！总共查询到" + str(row) + "条借阅人信息", 2000)
 
 
+
+
+
 class parentWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -338,6 +410,11 @@ class child_delreader(QMainWindow):
         self.UI = Ui_delreader()
         self.UI.setupUi(self)
 
+class child_searchreader(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_searchreader()
+        self.UI.setupUi(self)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

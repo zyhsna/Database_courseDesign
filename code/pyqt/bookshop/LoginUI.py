@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 import json
 
-from user_window_test_1 import *
+from user_window_test_2 import *
 
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
@@ -183,7 +183,7 @@ class login_window(QMainWindow):
 class userWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.UI = Ui_user_window_test_1()
+        self.UI = Ui_user_window_test2()
         self.UI.setupUi(self)
 
 
