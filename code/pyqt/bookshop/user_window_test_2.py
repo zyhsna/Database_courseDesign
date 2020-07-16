@@ -20,6 +20,8 @@ from searchbook import *
 from insert_addreader import *
 from Insert_delreader import *
 from searchreader import *
+from Insert_return import *
+
 
 class Ui_user_window_test2(object):
     def setupUi(self, MainWindow):
@@ -57,9 +59,9 @@ class Ui_user_window_test2(object):
         self.pushButton_3 = QtWidgets.QPushButton(self.borrow)
         self.pushButton_3.setGeometry(QtCore.QRect(570, 60, 93, 28))
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_6 = QtWidgets.QPushButton(self.borrow)
-        self.pushButton_6.setGeometry(QtCore.QRect(570, 130, 93, 28))
-        self.pushButton_6.setObjectName("pushButton_6")
+        # self.pushButton_6 = QtWidgets.QPushButton(self.borrow)
+        # self.pushButton_6.setGeometry(QtCore.QRect(570, 130, 93, 28))
+        # self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.borrow)
         self.pushButton_7.setGeometry(QtCore.QRect(570, 210, 91, 31))
         self.pushButton_7.setObjectName("pushButton_7")
@@ -170,6 +172,7 @@ class Ui_user_window_test2(object):
         childwindow_addreader = child_addreader()
         childwindow_delreader = child_delreader()
         childwindow_searchreader = child_searchreader()
+        childwindow_insertReturnAndBorrow = child_insertReturnAndBorrow()
         self.pushButton.clicked.connect(lambda: childwindow_addbook.show())
         self.purchasebook.clicked.connect(lambda: childwindow_insertpurchase.show())
         self.sellbook.clicked.connect(lambda: childwindow_insertsell.show())
@@ -178,6 +181,7 @@ class Ui_user_window_test2(object):
         self.pushButton_2.clicked.connect(lambda: childwindow_addreader.show())
         self.pushButton_4.clicked.connect(lambda: childwindow_delreader.show())
         self.pushButton_5.clicked.connect(lambda: childwindow_searchreader.show())
+        self.pushButton_3.clicked.connect(lambda: childwindow_insertReturnAndBorrow.show())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -186,8 +190,8 @@ class Ui_user_window_test2(object):
         self.see_reader_info.setText(_translate("MainWindow", "查看读者信息"))
         self.see_borrow_info.setText(_translate("MainWindow", "查看借阅信息"))
         self.exit.setText(_translate("MainWindow", "退出"))
-        self.pushButton_3.setText(_translate("MainWindow", "借书"))
-        self.pushButton_6.setText(_translate("MainWindow", "还书"))
+        self.pushButton_3.setText(_translate("MainWindow", "借阅操作"))
+       # self.pushButton_6.setText(_translate("MainWindow", "还书"))
         self.pushButton_7.setText(_translate("MainWindow", "搜索借书"))
         self.pushButton_8.setText(_translate("MainWindow", "搜索还书"))
         self.label_3.setText(_translate("MainWindow", "借阅信息"))
@@ -328,7 +332,6 @@ class Ui_user_window_test2(object):
         self.book_info.setModel(model)
         self.statusbar.showMessage("查询成功！总共查询到" + str(row) + "条数据", 2000)
 
-
     def get_reader_info(self):
         self.db = connect(host='localhost', port=3306, charset='utf8', database='MySQL', password='zyh20000205',
                           user='root')
@@ -415,6 +418,14 @@ class child_searchreader(QMainWindow):
         QMainWindow.__init__(self)
         self.UI = Ui_searchreader()
         self.UI.setupUi(self)
+
+class child_insertReturnAndBorrow(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_InsertReturnAndBorrow()
+        self.UI.setupUi(self)
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
