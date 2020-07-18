@@ -217,3 +217,11 @@ if __name__ == '__main__':
     test_ui.setupUi(mainWindow)
     mainWindow.show()
     sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    login = login_window()
+    user = userWindow()
+    login.show()
+    sys.exit(app.exec_())

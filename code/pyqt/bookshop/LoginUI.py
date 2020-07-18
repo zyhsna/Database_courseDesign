@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import *
 import json
 
 from user_window_test_2 import *
-
+from admin_window import  *
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
     # def __init__(self, user_ui):
@@ -101,7 +101,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "书店管理系统"))
         self.label.setText(_translate("MainWindow", "用户名"))
         self.label_2.setText(_translate("MainWindow", "密码"))
         self.pushButton.setText(_translate("MainWindow", "登录"))
@@ -134,8 +134,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             if account in bookshop_admin.keys():
                 if bookshop_admin[account] == password:
                     self.statusbar.showMessage("管理员登录成功", 2000)
-
-                    # MainWindow.close()
+                    admin.show()
+                    MainWindow.close()
                 elif len(password) is 0:
                     self.statusbar.showMessage("请输入密码", 2000)
                 else:
@@ -186,10 +186,17 @@ class userWindow(QMainWindow):
         self.UI = Ui_user_window_test2()
         self.UI.setupUi(self)
 
+class adminWindow(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_adminWindow()
+        self.UI.setupUi(self)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     login = login_window()
     user = userWindow()
+    admin = adminWindow()
     login.show()
     sys.exit(app.exec_())

@@ -10,7 +10,7 @@
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from pymysql import *
 
 class Ui_searchreader(object):
@@ -126,14 +126,6 @@ class Ui_searchreader(object):
         else:
             self.statusbar.showMessage("请输入信息")
 
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    mainWindow = QtWidgets.QMainWindow()
-    test_ui = Ui_searchreader()
-    test_ui.setupUi(mainWindow)
-    mainWindow.show()
-    sys.exit(app.exec_())
 
 
 
