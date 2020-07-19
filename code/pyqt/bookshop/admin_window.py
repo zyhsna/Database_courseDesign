@@ -11,6 +11,8 @@ import sys
 from pymysql import *
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from PyQt5.QtWidgets import QMainWindow, QApplication
+from insert_employee import *
+from deleteEmployee import *
 
 
 class Ui_adminWindow(object):
@@ -66,12 +68,12 @@ class Ui_adminWindow(object):
         self.pushButton_6 = QtWidgets.QPushButton(self.emoloyee)
         self.pushButton_6.setGeometry(QtCore.QRect(470, 70, 93, 28))
         self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_7 = QtWidgets.QPushButton(self.emoloyee)
-        self.pushButton_7.setGeometry(QtCore.QRect(470, 120, 93, 28))
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_8 = QtWidgets.QPushButton(self.emoloyee)
-        self.pushButton_8.setGeometry(QtCore.QRect(470, 170, 93, 28))
-        self.pushButton_8.setObjectName("pushButton_8")
+        # self.pushButton_7 = QtWidgets.QPushButton(self.emoloyee)
+        # self.pushButton_7.setGeometry(QtCore.QRect(470, 120, 93, 28))
+        # self.pushButton_7.setObjectName("pushButton_7")
+        # self.pushButton_8 = QtWidgets.QPushButton(self.emoloyee)
+        # self.pushButton_8.setGeometry(QtCore.QRect(470, 170, 93, 28))
+        # self.pushButton_8.setObjectName("pushButton_8")
         self.tableView = QtWidgets.QTableView(self.emoloyee)
         self.tableView.setGeometry(QtCore.QRect(20, 20, 441, 301))
         self.tableView.setObjectName("tableView")
@@ -103,13 +105,17 @@ class Ui_adminWindow(object):
         self.showEmployeeInfo.clicked.connect(self.emoloyee.show)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.priority = 0
-
+        childwindow_insertEmployee = child_insertEmployee()
+        childwindow_delEmployee = child_delEmployee()
 
         self.radioButton.clicked.connect(lambda: self.choose_admin())
         self.radioButton_2.clicked.connect(lambda: self.choose_employee())
         self.pushButton_3.clicked.connect(lambda: self.add_operator_method())
         self.pushButton_5.clicked.connect(lambda:self.del_operator())
         self.showEmployeeInfo.clicked.connect(lambda:self.get_empolyee_info())
+        self.pushButton_4.clicked.connect(lambda:childwindow_insertEmployee.show())
+        self.pushButton_6.clicked.connect(lambda: childwindow_delEmployee.show())
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "管理员"))
@@ -121,8 +127,8 @@ class Ui_adminWindow(object):
         self.label_2.setText(_translate("MainWindow", "密码"))
         self.pushButton_4.setText(_translate("MainWindow", "添加雇员"))
         self.pushButton_6.setText(_translate("MainWindow", "删除雇员"))
-        self.pushButton_7.setText(_translate("MainWindow", "查找雇员"))
-        self.pushButton_8.setText(_translate("MainWindow", "修改信息"))
+      #  self.pushButton_7.setText(_translate("MainWindow", "查找雇员"))
+      #  self.pushButton_8.setText(_translate("MainWindow", "修改信息"))
         self.add_operator.setText(_translate("MainWindow", "查看操作人员"))
         self.showEmployeeInfo.setText(_translate("MainWindow", "查看雇员信息"))
 
@@ -262,6 +268,17 @@ class parentWindow_admin(QMainWindow):
         self.UI = Ui_adminWindow()
         self.UI.setupUi(self)
 
+class child_insertEmployee(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_insert_employee()
+        self.UI.setupUi(self)
+
+class child_delEmployee(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.UI = Ui_Form()
+        self.UI.setupUi(self)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

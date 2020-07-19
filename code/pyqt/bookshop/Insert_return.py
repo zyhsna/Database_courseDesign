@@ -64,9 +64,8 @@ class Ui_InsertReturnAndBorrow(object):
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 1, 1, 1, 1)
 
-        self.statusbar = QtWidgets.QStatusBar(Form)
-        self.statusbar.setObjectName("statusbar")
-        Form.setStatusBar(self.statusbar)
+
+
 
         self.retranslateUi(Form)
         self.pushButton.clicked.connect(self.lineEdit.clear)
