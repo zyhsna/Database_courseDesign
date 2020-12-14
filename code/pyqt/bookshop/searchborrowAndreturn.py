@@ -200,28 +200,3 @@ class Ui_searchBorrowInfo(object):
 
     def return_choosed(self):
         self.priority = 2
-
-if __name__ == '__main__':
-    # db = QtSql.QSqlDatabase.addDatabase('QMYSQL')
-    # db.setPort(3306)
-    # db.setHostName('localhost')
-    # db.setDatabaseName('bookshopmanagement')
-    # db.setUserName('root')
-    # db.setPassword('zyh20000205')
-
-    # print(db.open())
-
-    app = QApplication(sys.argv)
-    mainWindow = QtWidgets.QMainWindow()
-    test_ui = Ui_searchBorrowInfo()
-    test_ui.setupUi(mainWindow)
-    mainWindow.show()
-    sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    login = login_window()
-    user = userWindow()
-    login.show()
-    sys.exit(app.exec_())

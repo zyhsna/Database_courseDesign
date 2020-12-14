@@ -63,6 +63,9 @@ class Ui_InsertReturnAndBorrow(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(self.widget)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 1, 1, 1, 1)
+        self.statusbar = QtWidgets.QStatusBar(Form)
+        self.statusbar.setObjectName("statusbar")
+        Form.setStatusBar(self.statusbar)
 
 
 
@@ -102,6 +105,7 @@ class Ui_InsertReturnAndBorrow(object):
         self.cursor.execute(sql)
         if self.priority is 0:
             self.statusbar.showMessage("请选择操作", 2000)
+            print("capzuo")
         elif self.priority is 1:
 
             sql = "insert into borrow(BorrowTime, ReaderID, ISBN) values('%s','%d','%s')" % (

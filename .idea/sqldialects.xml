@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/code/DatabaseCourseDesign.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insert_delreader.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insert_return.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insertbook.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insertdel.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insertpurchase.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/Insertsell.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/admin_window.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/insert_addreader.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/searchbook.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/user_window_test.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/user_window_test_1.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/code/pyqt/bookshop/user_window_test_2.py" dialect="GenericSQL" />
+  </component>
+</project>
